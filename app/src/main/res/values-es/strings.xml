@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tokio2020</string>
+    <string name="Get_Songs">Obtener</string>
+    <string name="Artist_Name">Artista</string>
+    <string name="Track_ID">ID Canción</string>
+    <string name="Collection_Name">Nombre Colección</string>
+    <string name="Track_Name">Nombre Canción</string>
+    <string name="Download">Descargar</string>
+    <string name="Play">Reproducir</string>
+    <string name="Stop">Parar</string>
+    <string name="type_Medal">Tipo de medalla</string>
+    <string name="Get_Medals_By_Event">Obtener medallas por evento</string>
+</resources>
