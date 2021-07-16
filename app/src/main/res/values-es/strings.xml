@@ -11,4 +11,9 @@
     <string name="Stop">Parar</string>
     <string name="type_Medal">Tipo de medalla</string>
     <string name="Get_Medals_By_Event">Obtener medallas por evento</string>
+    <string name="Get_Data_Medals_By_Country">Obtener Medallas por País</string>
+    <string name="Country">País</string>
+    <string name="Gold">Oro</string>
+    <string name="Bronze">Bronce</string>
+    <string name="Silver">Plata</string>
 </resources>

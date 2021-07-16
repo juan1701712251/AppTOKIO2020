@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initEvents(){
         btnGetDataSongs.setOnClickListener(v -> {
-            getDataMedalsByEventInfo();
+            getDataMedalsByCountryInfo();
         });
     }
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btnGetDataSongs = findViewById(R.id.btnGetDataSongs);
 
     }
-
+    /*
     public Country getDataCountryInfo(int id_country){
         final Country[] outCountry = {null};
         TOKIO2020Service.requestCountryData(id_country,(statusCode, country) -> {
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Country ","Country found! Name Country:"+ outCountry[0].getName());
         return outCountry[0];
     }
-
-    public void getDataMedalsByEventInfo(){
+    */
+    public void getDataMedalsByCountryInfo(){
 
         TOKIO2020Service.requestMedalsByEventData((statusCode, root) -> {
             switch (statusCode){
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     setData(root);
                     runOnUiThread(() -> {
                         if(getData() != null) {
-                            showDataMedalByEvents(getData());
+                            showDataMedalByCountry(getData());
                         }
                     });
                     break;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showDataMedalByEvents(Root root){
+    public void showDataMedalByCountry(Root root){
         List<MedalByCountry> medalsByCountry= convertMedalsByEventInMedalsByCountry(root.getResource());
         CustomListAdapter adapter = new CustomListAdapter(this, medalsByCountry,this.TOKIO2020Service);
         lviewItems.setAdapter(adapter);
@@ -98,7 +98,10 @@ public class MainActivity extends AppCompatActivity {
     private List<MedalByCountry> convertMedalsByEventInMedalsByCountry(List<MedalByEvent> resource) {
         List<MedalByCountry> out = new ArrayList<>();
 
-        //Llamar Procedimiento almacenado del API REST que me devuelve una lista de Medalleria por País
+        //Agrupar las medallas por país
+        for(MedalByEvent mbye : resource){
+            out.add(new MedalByCountry(mbye.getId_country(),mbye.getCountry_by_id_country().getName()));
+        }
 
         return out;
     }

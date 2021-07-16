@@ -5,6 +5,8 @@ public class MedalByEvent {
     private int id_event;
     private int id_country;
     private String type_medal;
+    private Country Country_by_id_country;
+    private SportEvent sport_event_by_id_event;
 
     public int getId() {
         return id;
@@ -12,6 +14,22 @@ public class MedalByEvent {
 
     public int getId_country() {
         return id_country;
+    }
+
+    public Country getCountry_by_id_country() {
+        return Country_by_id_country;
+    }
+
+    public SportEvent getSport_event_by_id_event() {
+        return sport_event_by_id_event;
+    }
+
+    public void setCountry_by_id_country(Country country_by_id_country) {
+        Country_by_id_country = country_by_id_country;
+    }
+
+    public void setSport_event_by_id_event(SportEvent sport_event_by_id_event) {
+        this.sport_event_by_id_event = sport_event_by_id_event;
     }
 
     public int getId_event() {

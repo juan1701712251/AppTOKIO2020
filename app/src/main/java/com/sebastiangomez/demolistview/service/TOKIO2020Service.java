@@ -51,7 +51,7 @@ public class TOKIO2020Service {
                         }
                     }
                 }catch(Exception ex){
-                    Log.d("Error: ","Error obteniendo datos");
+                    Log.d("Error: ","Error obteniendo datos Country");
                 }
             }
 
@@ -90,7 +90,7 @@ public class TOKIO2020Service {
                         }
                     }
                 }catch(Exception ex){
-                    Log.d("Error: ","Error obteniendo datos");
+                    Log.d("Error: ","Error obteniendo datos MedalByEvents");
                 }
             }
 

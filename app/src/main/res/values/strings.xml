@@ -10,4 +10,9 @@
     <string name="Stop">Stop</string>
     <string name="type_Medal">Type Medal</string>
     <string name="Get_Medals_By_Event">Get Medals By Event</string>
+    <string name="Get_Data_Medals_By_Country">Get Data Medals By Country</string>
+    <string name="Country">Country</string>
+    <string name="Gold">Gold</string>
+    <string name="Silver">Silver</string>
+    <string name="Bronze">Bronze</string>
 </resources>
