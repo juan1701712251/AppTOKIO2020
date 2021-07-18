@@ -1,18 +1,28 @@
 package com.sebastiangomez.demolistview.model;
 
-public class MedalByCountry {
+public class MedalByType {
     private int id_country;
-    private String nameCountry;
+    private int id_event;
+    private String name;
     private int cantGoldMedal;
     private int cantSilverMedal;
     private int cantBronzeMedal;
 
-    public MedalByCountry(int id_country,String nameCountry){
-        this.id_country = id_country;
-        this.nameCountry = nameCountry;
+    public MedalByType(int id_type, String name){
+        this.id_country = id_type;
+        this.name = name;
+        this.id_event = id_type;
         this.cantGoldMedal = 0;
         this.cantSilverMedal = 0;
         this.cantBronzeMedal = 0;
+    }
+
+    public int getId_event() {
+        return id_event;
+    }
+
+    public void setId_event(int id_event) {
+        this.id_event = id_event;
     }
 
     public void setId_country(int id_country) {
@@ -35,8 +45,8 @@ public class MedalByCountry {
         this.cantSilverMedal += cantSilverMedal;
     }
 
-    public void setNameCountry(String nameCountry) {
-        this.nameCountry = nameCountry;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCantBronzeMedal() {
@@ -55,8 +65,8 @@ public class MedalByCountry {
         return cantSilverMedal;
     }
 
-    public String getNameCountry() {
-        return nameCountry;
+    public String getName() {
+        return name;
     }
 
 }

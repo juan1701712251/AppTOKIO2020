@@ -5,21 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.sebastiangomez.demolistview.model.MedalByCountry;
+import com.sebastiangomez.demolistview.model.MedalByType;
 import com.sebastiangomez.demolistview.service.TOKIO2020Service;
 
 import java.util.List;
 
 public class CustomListAdapter extends BaseAdapter {
     private MainActivity context;
-    private List<MedalByCountry> resources;
+    private List<MedalByType> resources;
     private TOKIO2020Service TOKIO2020Service;
     MediaPlayer mediaPlayer;
 
-    public CustomListAdapter (MainActivity newContext, List<MedalByCountry> newResources, TOKIO2020Service newTOKIO2020Service){
+    public CustomListAdapter (MainActivity newContext, List<MedalByType> newResources, TOKIO2020Service newTOKIO2020Service){
         context = newContext;
         resources = newResources;
         TOKIO2020Service = newTOKIO2020Service;
@@ -32,7 +31,7 @@ public class CustomListAdapter extends BaseAdapter {
     }
 
     @Override
-    public MedalByCountry getItem(int i) {
+    public MedalByType getItem(int i) {
         return resources.get(i);
     }
 
@@ -53,34 +52,24 @@ public class CustomListAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        MedalByCountry currentMedalByCountry = (MedalByCountry) getItem(position);
+        MedalByType currentMedalByType = (MedalByType) getItem(position);
 
         ViewHolder finalViewHolder = viewHolder;
 
-        viewHolder.txtNameCountry.setText(currentMedalByCountry.getNameCountry());
-        viewHolder.txtMedalGold.setText(String.valueOf(currentMedalByCountry.getCantGoldMedal()));
-        viewHolder.txtMedalSilver.setText(String.valueOf(currentMedalByCountry.getCantSilverMedal()));
-        viewHolder.txtMedalBronze.setText(String.valueOf(currentMedalByCountry.getCantBronzeMedal()));
-        viewHolder.txtTotalMedal.setText(String.valueOf(currentMedalByCountry.getTotalMedal()));
+        viewHolder.txtNameCountry.setText(currentMedalByType.getName());
+        viewHolder.txtMedalGold.setText(String.valueOf(currentMedalByType.getCantGoldMedal()));
+        viewHolder.txtMedalSilver.setText(String.valueOf(currentMedalByType.getCantSilverMedal()));
+        viewHolder.txtMedalBronze.setText(String.valueOf(currentMedalByType.getCantBronzeMedal()));
+        viewHolder.txtTotalMedal.setText(String.valueOf(currentMedalByType.getTotalMedal()));
 
         viewHolder.txtNameCountry.setOnClickListener(v -> {
-            getDataMedalsByEvent(currentMedalByCountry.getId_country());
+            context.showDataMedalsByEvent(currentMedalByType.getId_country());
         });
 
         return convertView;
     }
 
-    public void getDataMedalsByEvent(int id_country){
-        context.setContentView(R.layout.events_by_country);
-        /*
-        Button btnBackHome = context.findViewById(R.id.btnBackHome);
-        btnBackHome.setOnClickListener(v -> {
-            context.setContentView(R.layout.activity_main);
-        });
-         */
 
-
-    }
 
     public class ViewHolder{
         TextView txtNameCountry;
