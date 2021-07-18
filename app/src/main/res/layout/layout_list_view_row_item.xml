@@ -7,19 +7,23 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/layoutItemListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="1dp">
+        android:padding="10dp">
+
 
         <TextView
             android:id="@+id/txtNameItem"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_weight="2"
             android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="16sp" />
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtMedalGold"

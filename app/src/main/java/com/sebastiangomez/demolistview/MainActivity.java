@@ -15,6 +15,8 @@ import com.sebastiangomez.demolistview.model.Root;
 import com.sebastiangomez.demolistview.service.TOKIO2020Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         txtNameCountry.setVisibility(View.GONE);
         txtCountryTitle.setVisibility(View.GONE);
 
-
         TOKIO2020Service.requestMedalsByEventData((statusCode, root) -> {
             switch (statusCode){
                 case -1:
@@ -106,39 +107,38 @@ public class MainActivity extends AppCompatActivity {
         txtNameCountry.setVisibility(View.VISIBLE);
         txtCountryTitle.setVisibility(View.VISIBLE);
 
-
-        /*
-        btnBackHome = findViewById(R.id.btnBackHome);
-        btnBackHome.setOnClickListener(v -> {
-            setContentView(R.layout.activity_main);
-        });
-        */
-        List<MedalByType> medalsByEvent= convertToMedalsByEventFromCountry(getData().getResource(),id_country);
+        //Ordenando el arreglo
+        ArrayList<MedalByType> medalsByEvent= convertToMedalsByEventFromCountry(getData().getResource(),id_country);
+        sortArrayListDesc(medalsByEvent);
         CustomListAdapter adapter = new CustomListAdapter(this, medalsByEvent,this.TOKIO2020Service);
         lviewItems.setAdapter(adapter);
     }
 
-    private List<MedalByType> convertToMedalsByEventFromCountry(List<MedalByEvent> resource,int id_country){
-        List<MedalByType> out = new ArrayList<>();
+
+
+
+    private ArrayList<MedalByType> convertToMedalsByEventFromCountry(ArrayList<MedalByEvent> resource,int id_country){
+        ArrayList<MedalByType> out = new ArrayList<>();
 
         //Agrupar las medallas por evento a partir de un id de un country
         for(MedalByEvent mbye : resource){
-            MedalByType mbyt = findMedalByEventById(out,mbye.getId_country());
-
-            if (mbyt == null) {
-                mbyt = new MedalByType(mbye.getId_event(), mbye.getSport_event_by_id_event().getName());
-                out.add(mbyt);
-            }
-            switch (mbye.getType_medal()) {
-                case ("GOLD"):
-                    mbyt.setCantGoldMedal(1);
-                    break;
-                case ("SILVER"):
-                    mbyt.setCantSilverMedal(1);
-                    break;
-                case ("BRONZE"):
-                    mbyt.setCantBronzeMedal(1);
-                    break;
+            if(mbye.getId_country() == id_country) {
+                MedalByType mbyt = findMedalByEventById(out,mbye.getId_event());
+                if (mbyt == null) {
+                    mbyt = new MedalByType(mbye.getId_event(), mbye.getSport_event_by_id_event().getName());
+                    out.add(mbyt);
+                }
+                switch (mbye.getType_medal()) {
+                    case ("GOLD"):
+                        mbyt.setCantGoldMedal(1);
+                        break;
+                    case ("SILVER"):
+                        mbyt.setCantSilverMedal(1);
+                        break;
+                    case ("BRONZE"):
+                        mbyt.setCantBronzeMedal(1);
+                        break;
+                }
             }
 
         }
@@ -146,7 +146,31 @@ public class MainActivity extends AppCompatActivity {
         return out;
     }
 
-    public String getNameByCountryId(List<MedalByEvent> resource,int id_country){
+
+    public MedalByType findMedalByEventById(ArrayList<MedalByType> listmbyt, int id_event){
+        MedalByType out = null;
+        for(MedalByType mbyt:listmbyt){
+            if(mbyt.getId_event() == id_event){
+                out = mbyt;
+            }
+        }
+        return out;
+    }
+
+    /*
+    Medals By Country
+     */
+
+    private void sortArrayListDesc(List<MedalByType> medalsByType){
+        Collections.sort(medalsByType, new Comparator<MedalByType>() {
+            @Override
+            public int compare(MedalByType o1, MedalByType o2) {
+                return new Integer(o2.getTotalMedal()).compareTo(new Integer(o1.getTotalMedal()));
+            }
+        });
+    }
+
+    public String getNameByCountryId(ArrayList<MedalByEvent> resource,int id_country){
         for(MedalByEvent mbye : resource){
             if(mbye.getId_country() == id_country){
                 return mbye.getCountry_by_id_country().getName();
@@ -155,27 +179,16 @@ public class MainActivity extends AppCompatActivity {
         return "";
     }
 
-    public MedalByType findMedalByEventById(List<MedalByType> listmbyc, int id_event){
-        MedalByType out = null;
-        for(MedalByType mbyc:listmbyc){
-            if(mbyc.getId_event() == id_event){
-                out = mbyc;
-            }
-        }
-        return out;
-    }
-
-
-
-
     public void showDataMedalByCountry(Root root){
-        List<MedalByType> medalsByCountry= convertMedalsByEventInMedalsByCountry(root.getResource());
+        ArrayList<MedalByType> medalsByCountry= convertMedalsByEventInMedalsByCountry(root.getResource());
+        sortArrayListDesc(medalsByCountry);
+        setPositionAndNameToList(medalsByCountry);
         CustomListAdapter adapter = new CustomListAdapter(this, medalsByCountry,this.TOKIO2020Service);
         lviewItems.setAdapter(adapter);
     }
 
-    private List<MedalByType> convertMedalsByEventInMedalsByCountry(List<MedalByEvent> resource) {
-        List<MedalByType> out = new ArrayList<>();
+    private ArrayList<MedalByType> convertMedalsByEventInMedalsByCountry(ArrayList<MedalByEvent> resource) {
+        ArrayList<MedalByType> out = new ArrayList<>();
 
         //Agrupar las medallas por país
         for(MedalByEvent mbye : resource){
@@ -199,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         return out;
     }
 
-    public MedalByType findMedalByCountryById(List<MedalByType> listmbyc, int id_country){
+    public MedalByType findMedalByCountryById(ArrayList<MedalByType> listmbyc, int id_country){
         MedalByType out = null;
         for(MedalByType mbyc:listmbyc){
             if(mbyc.getId_country() == id_country){
@@ -207,6 +220,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return out;
+    }
+
+    private void setPositionAndNameToList(ArrayList<MedalByType> listMbyt){
+        int position = 1;
+        for(int i = 0;i < listMbyt.size();i++){
+            MedalByType mbyt = listMbyt.get(i);
+            if(i > 0 && listMbyt.get(i-1).getTotalMedal() != mbyt.getTotalMedal()){
+                position = listMbyt.indexOf(mbyt)+1;
+            }
+            mbyt.setName(position+". "+mbyt.getName());
+        }
     }
 
     public Root getData() {

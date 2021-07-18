@@ -1,11 +1,14 @@
 package com.sebastiangomez.demolistview;
 
 import android.media.MediaPlayer;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.sebastiangomez.demolistview.model.MedalByType;
 import com.sebastiangomez.demolistview.service.TOKIO2020Service;
@@ -62,7 +65,7 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolder.txtMedalBronze.setText(String.valueOf(currentMedalByType.getCantBronzeMedal()));
         viewHolder.txtTotalMedal.setText(String.valueOf(currentMedalByType.getTotalMedal()));
 
-        viewHolder.txtNameCountry.setOnClickListener(v -> {
+        viewHolder.layoutItemListView.setOnClickListener(v -> {
             context.showDataMedalsByEvent(currentMedalByType.getId_country());
         });
 
@@ -77,8 +80,10 @@ public class CustomListAdapter extends BaseAdapter {
         TextView txtMedalSilver;
         TextView txtMedalBronze;
         TextView txtTotalMedal;
+        ViewGroup layoutItemListView;
 
         public ViewHolder(View view){
+            layoutItemListView = view.findViewById(R.id.layoutItemListView);
             txtNameCountry = view.findViewById(R.id.txtNameItem);
             txtMedalGold = view.findViewById(R.id.txtMedalGold);
             txtMedalSilver = view.findViewById(R.id.txtMedalSilver);

@@ -1,15 +1,15 @@
 package com.sebastiangomez.demolistview.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Root {
-    private List<MedalByEvent> resource;
+    private ArrayList<MedalByEvent> resource;
 
-    public List<MedalByEvent> getResource() {
+    public ArrayList<MedalByEvent> getResource() {
         return resource;
     }
 
-    public void setCountries(List<MedalByEvent> resource) {
+    public void setCountries(ArrayList<MedalByEvent> resource) {
         this.resource = resource;
     }
 
