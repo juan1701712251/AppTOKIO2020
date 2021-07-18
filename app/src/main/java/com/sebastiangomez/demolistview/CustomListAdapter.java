@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.sebastiangomez.demolistview.model.MedalByCountry;
@@ -57,14 +58,43 @@ public class CustomListAdapter extends BaseAdapter {
         ViewHolder finalViewHolder = viewHolder;
 
         viewHolder.txtNameCountry.setText(currentMedalByCountry.getNameCountry());
+        viewHolder.txtMedalGold.setText(String.valueOf(currentMedalByCountry.getCantGoldMedal()));
+        viewHolder.txtMedalSilver.setText(String.valueOf(currentMedalByCountry.getCantSilverMedal()));
+        viewHolder.txtMedalBronze.setText(String.valueOf(currentMedalByCountry.getCantBronzeMedal()));
+        viewHolder.txtTotalMedal.setText(String.valueOf(currentMedalByCountry.getTotalMedal()));
+
+        viewHolder.txtNameCountry.setOnClickListener(v -> {
+            getDataMedalsByEvent(currentMedalByCountry.getId_country());
+        });
+
         return convertView;
+    }
+
+    public void getDataMedalsByEvent(int id_country){
+        context.setContentView(R.layout.events_by_country);
+        /*
+        Button btnBackHome = context.findViewById(R.id.btnBackHome);
+        btnBackHome.setOnClickListener(v -> {
+            context.setContentView(R.layout.activity_main);
+        });
+         */
+
+
     }
 
     public class ViewHolder{
         TextView txtNameCountry;
+        TextView txtMedalGold;
+        TextView txtMedalSilver;
+        TextView txtMedalBronze;
+        TextView txtTotalMedal;
 
         public ViewHolder(View view){
-            txtNameCountry = view.findViewById(R.id.txtNameCountry);
+            txtNameCountry = view.findViewById(R.id.txtNameItem);
+            txtMedalGold = view.findViewById(R.id.txtMedalGold);
+            txtMedalSilver = view.findViewById(R.id.txtMedalSilver);
+            txtMedalBronze = view.findViewById(R.id.txtMedalBronze);
+            txtTotalMedal = view.findViewById(R.id.txtTotalMedals);
         }
     }
 }

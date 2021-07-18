@@ -16,4 +16,6 @@
     <string name="Gold">Oro</string>
     <string name="Bronze">Bronce</string>
     <string name="Silver">Plata</string>
+    <string name="Sport_Event">Evento Deportivo</string>
+    <string name="Back">Volver</string>
 </resources>

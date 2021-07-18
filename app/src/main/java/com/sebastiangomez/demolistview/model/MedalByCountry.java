@@ -10,6 +10,9 @@ public class MedalByCountry {
     public MedalByCountry(int id_country,String nameCountry){
         this.id_country = id_country;
         this.nameCountry = nameCountry;
+        this.cantGoldMedal = 0;
+        this.cantSilverMedal = 0;
+        this.cantBronzeMedal = 0;
     }
 
     public void setId_country(int id_country) {
@@ -21,15 +24,15 @@ public class MedalByCountry {
     }
 
     public void setCantBronzeMedal(int cantBronzeMedal) {
-        this.cantBronzeMedal = cantBronzeMedal;
+        this.cantBronzeMedal += cantBronzeMedal;
     }
 
     public void setCantGoldMedal(int cantGoldMedal) {
-        this.cantGoldMedal = cantGoldMedal;
+        this.cantGoldMedal += cantGoldMedal;
     }
 
     public void setCantSilverMedal(int cantSilverMedal) {
-        this.cantSilverMedal = cantSilverMedal;
+        this.cantSilverMedal += cantSilverMedal;
     }
 
     public void setNameCountry(String nameCountry) {
@@ -42,6 +45,10 @@ public class MedalByCountry {
 
     public int getCantGoldMedal() {
         return cantGoldMedal;
+    }
+
+    public int getTotalMedal() {
+        return cantGoldMedal+cantBronzeMedal+cantSilverMedal;
     }
 
     public int getCantSilverMedal() {

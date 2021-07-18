@@ -15,4 +15,6 @@
     <string name="Gold">Gold</string>
     <string name="Silver">Silver</string>
     <string name="Bronze">Bronze</string>
+    <string name="Sport_Event">Sport Event</string>
+    <string name="Back">Back</string>
 </resources>

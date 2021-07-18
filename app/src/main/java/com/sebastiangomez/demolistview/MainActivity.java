@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import com.sebastiangomez.demolistview.model.Country;
 import com.sebastiangomez.demolistview.model.MedalByCountry;
 import com.sebastiangomez.demolistview.model.MedalByEvent;
 import com.sebastiangomez.demolistview.model.Root;
@@ -20,7 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ListView lviewItems;
     private Root data;
-    private Button btnGetDataSongs;
+    private Button btnGetDataMedals;
 
     private TOKIO2020Service TOKIO2020Service;
 
@@ -37,14 +35,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initEvents(){
-        btnGetDataSongs.setOnClickListener(v -> {
+        btnGetDataMedals.setOnClickListener(v -> {
             getDataMedalsByCountryInfo();
         });
+
     }
+
 
     public void initViews(){
         lviewItems = findViewById(R.id.lvieItems);
-        btnGetDataSongs = findViewById(R.id.btnGetDataSongs);
+        btnGetDataMedals = findViewById(R.id.btnGetDataMedals);
 
     }
     /*
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
     */
     public void getDataMedalsByCountryInfo(){
-
+        Log.d("Debug:","Se ejecuta método getDataMedalsByCountry");
         TOKIO2020Service.requestMedalsByEventData((statusCode, root) -> {
             switch (statusCode){
                 case -1:
@@ -100,9 +100,33 @@ public class MainActivity extends AppCompatActivity {
 
         //Agrupar las medallas por país
         for(MedalByEvent mbye : resource){
-            out.add(new MedalByCountry(mbye.getId_country(),mbye.getCountry_by_id_country().getName()));
+            MedalByCountry mbyc = findMedalByCountryById(out,mbye.getId_country());
+            if(mbyc == null){
+                mbyc = new MedalByCountry(mbye.getId_country(),mbye.getCountry_by_id_country().getName());
+                out.add(mbyc);
+            }
+            switch(mbye.getType_medal()){
+                case("GOLD"):
+                    mbyc.setCantGoldMedal(1);
+                break;
+                case("SILVER"):
+                    mbyc.setCantSilverMedal(1);
+                break;
+                case("BRONZE"):
+                    mbyc.setCantBronzeMedal(1);
+                break;
+            }
         }
+        return out;
+    }
 
+    public MedalByCountry findMedalByCountryById(List<MedalByCountry> listmbyc,int id_country){
+        MedalByCountry out = null;
+        for(MedalByCountry mbyc:listmbyc){
+            if(mbyc.getId_country() == id_country){
+                out = mbyc;
+            }
+        }
         return out;
     }
 
